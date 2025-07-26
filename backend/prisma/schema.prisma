@@ -14,10 +14,18 @@ datasource db {
   directUrl = env("DIRECT_URL")
 }
 
+enum Role {
+  VENDOR
+  ADMIN
+  SUPPLIER
+}
+
+// 2. Update the User model to include the new 'role' field.
 model User {
   id        Int      @id @default(autoincrement())
   name      String
   email     String   @unique
   password  String
+  role      Role     @default(VENDOR) // New field for user role, defaults to VENDOR
   createdAt DateTime @default(now())
 }

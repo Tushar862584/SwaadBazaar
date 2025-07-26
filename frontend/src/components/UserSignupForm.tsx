@@ -1,77 +1,147 @@
 'use client';
 import React, { useState } from 'react';
+import { UserPlus, LogIn, Building } from 'lucide-react';
 
 export default function SignupPage() {
-  const [form, setForm] = useState({ name: '', email: '', password: '' });
+  const [form, setForm] = useState({
+    name: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+    role: 'vendor' 
+  });
   const [message, setMessage] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setMessage('');
+
+    // --- 1. Client-side Password Confirmation ---
+    if (form.password !== form.confirmPassword) {
+      setMessage('❌ Passwords do not match.');
+      return; // Stop submission if passwords don't match
+    }
+
+    setIsLoading(true);
     try {
+      // --- 2. Live API Call ---
+      // This now makes a real request to your backend endpoint.
       const res = await fetch('http://localhost:3001/api/auth/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form),
+        // We don't send confirmPassword to the backend as it's not needed there.
+        body: JSON.stringify({
+            name: form.name,
+            email: form.email,
+            password: form.password,
+            role: form.role
+        }),
       });
+
       const data = await res.json();
+
+      // --- 3. Handle API Response ---
       if (!res.ok) {
-        throw new Error(data.error || 'Registration failed');
+        // If the server responds with an error, use its message.
+        throw new Error(data.error || 'Registration failed due to an unknown error.');
       }
-      setMessage('✅ Account created successfully! You can now log in.');
+
+      // On success, display the success message from the backend.
+      setMessage(`✅ ${data.message || 'Account created successfully! You can now log in.'}`);
+      // Reset the form fields after successful registration.
+      setForm({ name: '', email: '', password: '', confirmPassword: '', role: 'vendor' }); 
+
     } catch (err) {
-      if (err instanceof Error) {
-        setMessage(`❌ ${err.message}`);
-      } else {
-        setMessage('❌ An unknown error occurred');
-      }
+      const errorMessage = err instanceof Error ? err.message : 'An unknown error occurred';
+      setMessage(`❌ ${errorMessage}`);
+    } finally {
+      setIsLoading(false);
     }
   };
-  
-  const messageClasses = message ? (message.startsWith('✅') ? 'bg-green-500/10 text-green-300' : 'bg-red-500/10 text-red-300') : '';
+
+  const messageClasses = message.includes('✅') 
+    ? 'bg-green-100 text-green-700' 
+    : 'bg-red-100 text-red-700';
 
   return (
-    <main className="relative min-h-screen w-full bg-gray-950 text-white overflow-hidden">
-      <div className="absolute inset-0 z-0 opacity-30">
-        <div className="absolute top-0 -left-4 w-72 h-72 md:w-96 md:h-96 bg-purple-600 rounded-full filter blur-3xl animate-blob"></div>
-        <div className="absolute top-0 -right-4 w-72 h-72 md:w-96 md:h-96 bg-blue-600 rounded-full filter blur-3xl animate-blob animation-delay-2000"></div>
-        <div className="absolute -bottom-8 left-20 w-72 h-72 md:w-96 md:h-96 bg-pink-600 rounded-full filter blur-3xl animate-blob animation-delay-4000"></div>
+    <main className="min-h-screen w-full bg-[#f8f9fa] flex items-center justify-center p-4 font-sans">
+      {/* Subtle background pattern */}
+      <div className="absolute inset-0 z-0 opacity-50">
+        <div 
+          className="absolute top-0 left-0 w-full h-full bg-repeat" 
+          style={{backgroundImage: `url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23dce1e7" fill-opacity="0.4"%3E%3Cpath d="M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')`}}>
+        </div>
       </div>
-      <div className="relative z-10 flex flex-col md:flex-row min-h-screen">
-        <div className="w-full md:w-1/2 flex flex-col justify-center items-center text-center p-12 order-1 md:order-1">
+      
+      <div className="relative w-full max-w-4xl grid md:grid-cols-2 rounded-2xl shadow-2xl overflow-hidden bg-white border border-gray-200">
+        
+        {/* Left Panel: Login CTA */}
+        <div className="p-12 bg-indigo-500 text-white flex-col justify-center items-center text-center hidden md:flex">
           <div className="w-full max-w-md">
-            <h2 className="text-5xl font-bold text-white mb-4">One of Us?</h2>
-            <p className="text-gray-300 text-lg mb-8">If you already have an account, just sign in. We've missed you!</p>
-            <a href="/login" className="inline-block px-10 py-3 font-semibold bg-white/10 border-2 border-white/20 text-white rounded-full backdrop-blur-lg transition-all duration-300 hover:bg-white/20 hover:border-white/40 hover:scale-105">Login</a>
+            <LogIn size={60} className="mx-auto mb-6 opacity-80" />
+            <h2 className="text-4xl font-bold mb-4">Already a Member?</h2>
+            <p className="text-indigo-100 text-lg mb-8">
+              If you already have an account, just sign in. We've missed you!
+            </p>
+            <a href="/login" className="inline-flex items-center justify-center gap-2 px-8 py-3 font-semibold bg-white text-indigo-600 rounded-full shadow-md transition-all duration-300 hover:bg-gray-100 hover:scale-105">
+                <UserPlus size={18} />
+                Sign In
+            </a>
           </div>
         </div>
-        <div className="w-full md:w-1/2 flex items-center justify-center p-6 sm:p-12 order-2 md:order-2">
-          <div className="w-full max-w-md space-y-8 rounded-2xl bg-gray-900/60 p-8 shadow-2xl backdrop-blur-lg border border-gray-700/50">
-            <div className="text-center">
-              <h2 className="text-4xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-400">Create Account</h2>
-              <p className="mt-2 text-gray-400">Join us today! It takes only a few seconds.</p>
-            </div>
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="relative">
-                <input id="name" name="name" type="text" required placeholder=" " value={form.name} onChange={handleChange} className="peer block w-full appearance-none rounded-lg border border-gray-600 bg-transparent px-4 py-3 text-white placeholder-gray-400 shadow-sm focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-400"/>
-                <label htmlFor="name" className="absolute top-3 left-4 origin-[0] -translate-y-7 scale-75 transform text-gray-400 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:-translate-y-7 peer-focus:scale-75 peer-focus:text-blue-400">Full Name</label>
-              </div>
-              <div className="relative">
-                <input id="email" name="email" type="email" required placeholder=" " value={form.email} onChange={handleChange} className="peer block w-full appearance-none rounded-lg border border-gray-600 bg-transparent px-4 py-3 text-white placeholder-gray-400 shadow-sm focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-400"/>
-                <label htmlFor="email" className="absolute top-3 left-4 origin-[0] -translate-y-7 scale-75 transform text-gray-400 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:-translate-y-7 peer-focus:scale-75 peer-focus:text-blue-400">Email Address</label>
-              </div>
-              <div className="relative">
-                <input id="password" name="password" type="password" required placeholder=" " value={form.password} onChange={handleChange} className="peer block w-full appearance-none rounded-lg border border-gray-600 bg-transparent px-4 py-3 text-white placeholder-gray-400 shadow-sm focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-400"/>
-                <label htmlFor="password" className="absolute top-3 left-4 origin-[0] -translate-y-7 scale-75 transform text-gray-400 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:-translate-y-7 peer-focus:scale-75 peer-focus:text-blue-400">Password</label>
-              </div>
-              <button type="submit" className="w-full rounded-lg bg-gradient-to-r from-purple-600 to-blue-500 py-3 px-4 text-base font-semibold text-white shadow-lg transition-all duration-300 ease-in-out hover:from-purple-700 hover:to-blue-600 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-900">Create Account</button>
-              {message && (<div className={`rounded-lg p-3 text-center text-sm font-medium ${messageClasses}`}><p>{message}</p></div>)}
-            </form>
+
+        {/* Right Panel: Signup Form */}
+        <div className="p-8 md:p-12 flex flex-col justify-center">
+          <div className="text-left mb-8">
+            <h2 className="text-3xl font-bold text-gray-800">Create an Account</h2>
+            <p className="mt-2 text-gray-500">Join us today! It takes only a few seconds.</p>
           </div>
+          
+          <form onSubmit={handleSubmit} className="space-y-5">
+            <div className="relative">
+              <label htmlFor="name" className="text-sm font-medium text-gray-600">Full Name</label>
+              <input id="name" name="name" type="text" required placeholder="John Doe" value={form.name} onChange={handleChange} disabled={isLoading} className="mt-1 peer block w-full appearance-none rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-gray-700 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 transition"/>
+            </div>
+            
+            <div className="relative">
+              <label htmlFor="email" className="text-sm font-medium text-gray-600">Email Address</label>
+              <input id="email" name="email" type="email" required placeholder="you@example.com" value={form.email} onChange={handleChange} disabled={isLoading} className="mt-1 peer block w-full appearance-none rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-gray-700 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 transition"/>
+            </div>
+
+            <div className="relative">
+              <label htmlFor="password" className="text-sm font-medium text-gray-600">Password</label>
+              <input id="password" name="password" type="password" required placeholder="••••••••" value={form.password} onChange={handleChange} disabled={isLoading} className="mt-1 peer block w-full appearance-none rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-gray-700 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 transition"/>
+            </div>
+            
+            <div className="relative">
+              <label htmlFor="confirmPassword" className="text-sm font-medium text-gray-600">Confirm Password</label>
+              <input id="confirmPassword" name="confirmPassword" type="password" required placeholder="••••••••" value={form.confirmPassword} onChange={handleChange} disabled={isLoading} className="mt-1 peer block w-full appearance-none rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-gray-700 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 transition"/>
+            </div>
+
+            <div className="relative">
+              <label htmlFor="role" className="text-sm font-medium text-gray-600">I am a...</label>
+              <select id="role" name="role" required value={form.role} onChange={handleChange} disabled={isLoading} className="mt-1 block w-full appearance-none rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-gray-700 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 transition">
+                <option value="vendor">Vendor</option>
+                <option value="supplier">Supplier</option>
+              </select>
+            </div>
+
+            <button type="submit" disabled={isLoading} className="w-full flex justify-center items-center gap-2 rounded-lg bg-indigo-600 py-3 px-4 text-base font-semibold text-white shadow-lg transition-all duration-300 ease-in-out hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-70 disabled:cursor-not-allowed">
+              <UserPlus size={18} />
+              {isLoading ? 'Creating Account...' : 'Create Account'}
+            </button>
+            
+            {message && (
+              <div className={`rounded-lg p-3 text-center text-sm font-medium ${messageClasses}`}>
+                <p>{message}</p>
+              </div>
+            )}
+          </form>
         </div>
       </div>
     </main>
