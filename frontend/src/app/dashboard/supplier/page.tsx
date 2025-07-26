@@ -4,6 +4,7 @@ import ProductCard from '../../../components/ProductCard';
 import OrderTable from '../../../components/OrderTable';
 import RatingOverview from '../../../components/RatingOverview';
 import KYCStatus from '../../../components/KYCStatus';
+import AddProductForm from '../../../components/AddProductForm';
 
 const tabs = ['My Products', 'Orders', 'Reviews', 'KYC'];
 
@@ -33,12 +34,20 @@ export default function SupplierDashboard() {
         </div>
 
         {/* Tab Content */}
-        <div className="bg-white/60 backdrop-blur-md border border-white/20 p-6 rounded-2xl shadow-lg">
-          {activeTab === 'My Products' && <ProductCard />}
-          {activeTab === 'Orders' && <OrderTable />}
-          {activeTab === 'Reviews' && <RatingOverview />}
-          {activeTab === 'KYC' && <KYCStatus />}
-        </div>
+<div className="bg-white/60 backdrop-blur-md border border-white/20 p-6 rounded-2xl shadow-lg">
+  {activeTab === 'My Products' && (
+    <>
+      
+      <div className="mt-6">
+        <ProductCard />
+        
+      </div>
+    </>
+  )}
+  {activeTab === 'Orders' && <OrderTable />}
+  {activeTab === 'Reviews' && <RatingOverview />}
+  {activeTab === 'KYC' && <KYCStatus />}
+</div>
       </div>
     </main>
   );

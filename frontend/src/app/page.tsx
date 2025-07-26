@@ -195,6 +195,7 @@ export default function LandingPage() {
         </footer>
 
         {/* Floating CTA */}
+        <a href="/login">
         <motion.button
           initial={{ opacity: 0, scale: 0.9 }}
           whileInView={{ opacity: 1, scale: 1 }}
@@ -204,6 +205,7 @@ export default function LandingPage() {
         >
           Get Started
         </motion.button>
+        </a>
       </main>
     </>
   );
