@@ -8,7 +8,7 @@
 ![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)
 ![Supabase](https://img.shields.io/badge/Supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?style=for-the-badge&logo=postgresql&logoColor=white)
-![Railway](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)
+![Railway](https://img.shields.io/badge/Railway-0B0D0E?style=for-the-badge&logo=railway&logoColor=white)
 ![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
 
 </div>
@@ -43,7 +43,7 @@ Street vendors face inefficient sourcing, volatile pricing, and wasted time. **S
 * **Backend:** **Node.js** & **Express.js** for a robust and scalable API.
 * **AI Service:** **Python** & **FastAPI** for a high-speed ML microservice.
 * **Database & Auth:** **Supabase** providing PostgreSQL, Authentication, and Storage.
-* **Hosting:** **Vercel** for the frontend and **Render** for backend services.
+* **Hosting:** All services are deployed on **Railway**.
 
 ---
 
