@@ -8,6 +8,7 @@ import {
   FaUser,
   FaBars,
   FaTimes,
+  FaSignOutAlt,
 } from 'react-icons/fa';
 
 const navItems = [
@@ -32,11 +33,16 @@ export default function Sidebar({
     setMobileOpen(false);
   };
 
+  const logout = () => {
+    localStorage.clear(); // Optional: clear tokens
+    window.location.href = '/login'; // Or use router.push('/login')
+  };
+
   return (
     <>
       {/* Mobile Toggle Button */}
       <button
-        className="fixed top-4 left-4 z-50 md:hidden bg-[#ff4e3d] text-black p-2 rounded-full shadow-lg"
+        className="fixed top-4 left-4 z-50 md:hidden bg-[#ff4e3d] text-white p-2 rounded-full shadow-lg"
         onClick={() => setMobileOpen(!mobileOpen)}
       >
         {mobileOpen ? <FaTimes /> : <FaBars />}
@@ -65,8 +71,16 @@ export default function Sidebar({
           </ul>
         </nav>
 
-        <div className="mt-auto text-xs text-white/40">
-          &copy; 2025 SwaadBazaar. All rights reserved.
+        {/* Logout Button */}
+        <button
+          onClick={logout}
+          className="flex items-center gap-2 mt-6 py-2 px-4 w-full text-sm bg-[#ff4e3d] text-white rounded-lg hover:bg-[#e03b2d] transition"
+        >
+          <FaSignOutAlt /> Logout
+        </button>
+
+        <div className="mt-4 text-xs text-white/40 text-center">
+          &copy; 2025 SwaadBazaar
         </div>
       </aside>
 
@@ -81,6 +95,7 @@ export default function Sidebar({
             onClick={(e) => e.stopPropagation()}
           >
             <h2 className="text-2xl font-bold text-[#ff4e3d] mb-10">🍅 Vendor Panel</h2>
+
             <ul className="space-y-5 text-sm">
               {navItems.map((item) => (
                 <li
@@ -97,8 +112,17 @@ export default function Sidebar({
                 </li>
               ))}
             </ul>
-            <div className="mt-10 text-xs text-white/40">
-              &copy; 2025 SwaadBazaar. All rights reserved.
+
+            {/* Mobile Logout Button */}
+            <button
+              onClick={logout}
+              className="flex items-center gap-2 mt-6 py-2 px-4 w-full text-sm bg-[#ff4e3d] text-white rounded-lg hover:bg-[#e03b2d] transition"
+            >
+              <FaSignOutAlt /> Logout
+            </button>
+
+            <div className="mt-4 text-xs text-white/40 text-center">
+              &copy; 2025 SwaadBazaar
             </div>
           </aside>
         </div>

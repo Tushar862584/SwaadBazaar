@@ -2,7 +2,6 @@
 import React, { useState } from 'react';
 import Sidebar from '@/components/Sidebar';
 import DisplayProductCard from '@/components/DisplayProductCard';
-import ProductCard from '@/components/ProductCard';
 import GroupBuyModal from '@/components/GroupByModal';
 import DashboardContent from '@/components/DashboardContent';
 import OrderHistory from '@/components/OrderHistory';
@@ -33,9 +32,21 @@ const sampleProducts = [
   },
 ];
 
+
 export default function VendorDashboard() {
   const [activeTab, setActiveTab] = useState('Dashboard');
   const [selectedProduct, setSelectedProduct] = useState<any>(null);
+  
+  const renderContent = () => {
+     switch (activeTab) {
+       case 'Products':
+         return <DisplayProductCard  product={sampleProducts[0]} onClick={() => setSelectedProduct(sampleProducts[0])} />;
+       case 'Orders':
+         return <OrderHistory />;
+ 
+       default:
+     }
+   };
 
   return (
 <main className="flex min-h-screen bg-gradient-to-br from-[#fff3ec] to-[#ffe9e3] font-sans text-gray-900">
@@ -50,7 +61,7 @@ export default function VendorDashboard() {
             onClick={() => setActiveTab(tab)}
             className={`px-5 py-2 rounded-full text-sm font-semibold border transition backdrop-blur-md ${
                 activeTab === tab
-                ? 'bg-primary text-white border-primary'
+                ? 'bg-primary text-black border-primary'
                 : 'bg-white/40 text-primary border-white/60 hover:bg-white/60'
               }`}
               >
@@ -58,9 +69,9 @@ export default function VendorDashboard() {
             </button>
           ))}
         </div>
-{activeTab === 'Dashboard' && <DashboardContent />}
-{activeTab === 'My Orders' && <OrderHistory />}
-{activeTab === 'Forecast' && <ForecastChart />}
+          {renderContent()}
+
+
 
         {/* Tab Content */}
         {activeTab === 'Available Products' && (
@@ -74,13 +85,13 @@ export default function VendorDashboard() {
             ))}
           </div>
         )}
-
+        {activeTab === 'Dashboard' && <DashboardContent />}
         {activeTab === 'My Orders' && (
-          <p className="text-sm text-gray-600">🛒 Your past orders will appear here.</p>
+          <OrderHistory />
         )}
 
         {activeTab === 'Forecast' && (
-          <p className="text-sm text-gray-600">📈 Forecast data will be available soon.</p>
+          <ForecastChart />
         )}
       </section>
 

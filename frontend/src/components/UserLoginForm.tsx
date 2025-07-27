@@ -61,7 +61,7 @@ const LoginPage: React.FC = () => {
 
     // --- Special Case: Hardcoded Admin Login ---
     // You can change these credentials as needed.
-    if (form.email === 'admin@swaad.com' && form.password === 'adminpassword') {
+    if (form.email === 'admin@example.com' && form.password === 'admin123') {
         const adminUser: UserData = { name: 'Swaad Admin', email: 'admin@swaad.com', role: 'admin' };
         localStorage.setItem('user', JSON.stringify(adminUser));
         localStorage.setItem('authToken', 'mock_admin_token_for_dev'); // Use a mock token for the hardcoded admin
