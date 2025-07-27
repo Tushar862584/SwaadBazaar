@@ -49,13 +49,13 @@ Street vendors face inefficient sourcing, volatile pricing, and wasted time. **S
 
 ## 🗄️ Database Schema
 
-| Table Name  | Key Columns                          | Description                               |
-| :---------- | :----------------------------------- | :---------------------------------------- |
-| `Users`     | `id`, `role`, `location`             | Profiles for vendors, suppliers, admins.  |
-| `Products`  | `id`, `name`, `price`, `supplier_id` | All raw materials listed by suppliers.    |
-| `Orders`    | `id`, `vendor_id`, `items[]`, `status` | Tracks individual vendor orders.          |
-| `GroupOrders`| `id`, `product_id`, `members[]`    | Manages active and completed group buys.  |
-| `Reviews`   | `order_id`, `rating`, `comment`      | Ratings and feedback for suppliers.       |
+| Table Name | Key Columns | Description |
+| :--- | :--- | :--- |
+| `Users` | `id`, `role`, `location` | Profiles for vendors, suppliers, admins. |
+| `Products` | `id`, `name`, `price`, `supplier_id` | All raw materials listed by suppliers. |
+| `Orders` | `id`, `vendor_id`, `items[]`, `status` | Tracks individual vendor orders. |
+| `GroupOrders`| `id`, `product_id`, `members[]` | Manages active and completed group buys. |
+| `Reviews` | `order_id`, `rating`, `comment` | Ratings and feedback for suppliers. |
 
 ---
 
@@ -79,6 +79,15 @@ Street vendors face inefficient sourcing, volatile pricing, and wasted time. **S
     JWT_SECRET="your-jwt-secret"
     ```
 
+### 🧪 Demo Credentials
+
+You can use the following credentials to log in and test the admin dashboard.
+
+* **Email:** `admin@example.com`
+* **Password:** `admin123`
+
+> **Note:** These are for local testing and demonstration purposes only. Never commit real user credentials to a public repository.
+
 ---
 
 ## 🚀 Future Scope
@@ -87,19 +96,3 @@ Street vendors face inefficient sourcing, volatile pricing, and wasted time. **S
 * **Logistics Integration** for a complete order and delivery network.
 * **Supplier Analytics Dashboard** to show demand trends and insights.
 * **Digital Payments & Credit** to streamline transactions.
-
----
-
-<div align="center">
-
-## 🧑‍💻 Our Team
-
-| Role             | Primary Stack                 |
-| :--------------- | :---------------------------- |
-| **Frontend Dev 1** | Next.js, Redux                |
-| **Frontend Dev 2** | Next.js, React Query          |
-| **Backend Dev** | Node.js, Express, Supabase    |
-| **AI/ML Dev** | Python, FastAPI, Scikit-learn |
-| **UI/UX & PM** | Figma, Supabase               |
-
-</div>
