@@ -130,21 +130,21 @@ const LoginPage: React.FC = () => {
               <input id="password" name="password" type="password" required placeholder="••••••••" value={form.password} onChange={handleChange} disabled={isLoading} className="mt-1 peer block w-full appearance-none rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-gray-700 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 transition"/>
             </div>
             <div className="flex items-center justify-end text-sm">
-              <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500 transition-colors">Forgot password?</a>
+              <a href="#" className="font-medium text-[#ff4e3d] hover:text-[#ff3926] transition-colors">Forgot password?</a>
             </div>
-            <button type="submit" disabled={isLoading} className="w-full flex justify-center items-center gap-2 rounded-lg bg-indigo-600 py-3 px-4 text-base font-semibold text-white shadow-lg transition-all duration-300 ease-in-out hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-70 disabled:cursor-not-allowed">
+            <button type="submit" disabled={isLoading} className="w-full flex justify-center items-center gap-2 rounded-lg bg-[#ff4e3d] py-3 px-4 text-base font-semibold text-white shadow-lg transition-all duration-300 ease-in-out hover:bg-[#ff3926] focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-70 disabled:cursor-not-allowed">
               <LogIn size={18} />
               {isLoading ? 'Signing In...' : 'Sign In'}
             </button>
             {message && (<div className={`rounded-lg p-3 text-center text-sm font-medium ${messageClasses}`}><p>{message}</p></div>)}
           </form>
         </div>
-        <div className="p-12 order-1 md:order-2 bg-indigo-500 text-white flex-col justify-center items-center text-center hidden md:flex">
+        <div className="p-12 order-1 md:order-2 bg-[#ff4e3d] text-white flex-col justify-center items-center text-center hidden md:flex">
           <div className="w-full max-w-md">
              <Building size={60} className="mx-auto mb-6 opacity-80" />
             <h2 className="text-4xl font-bold mb-4">New Here?</h2>
             <p className="text-indigo-100 text-lg mb-8">Create an account to join our supply chain ecosystem. It's quick and easy.</p>
-            <a href="/signup" className="inline-flex items-center justify-center gap-2 px-8 py-3 font-semibold bg-white text-indigo-600 rounded-full shadow-md transition-all duration-300 hover:bg-gray-100 hover:scale-105">
+            <a href="/signup" className="inline-flex items-center justify-center gap-2 px-8 py-3 font-semibold bg-white text-[#ff4e3d] rounded-full shadow-md transition-all duration-300 hover:bg-gray-100 hover:scale-105">
                 <UserPlus size={18} />
                 Sign Up Now
             </a>

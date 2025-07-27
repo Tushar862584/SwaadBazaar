@@ -66,10 +66,10 @@ export default function LandingPage() {
               >
                <a href="/login">
                 <motion.button
-                  whileHover={{ scale: 1.05, boxShadow: '0 0 20px #4ade80' }}
+                  whileHover={{ scale: 1.05, boxShadow: '0 0 20px #ff3926' }}
                   whileTap={{ scale: 0.95 }}         
                   transition={{ type: 'spring', stiffness: 300 }}
-                  className="relative px-6 py-3 rounded-full bg-[#4ade80]/90 text-[#0f172a] font-semibold backdrop-blur-lg hover:bg-[#4ade80] hover:text-black transition-shadow duration-300 shadow-lg"
+                  className="relative px-6 py-3 rounded-full bg-[#ff4e3d]/90 text-white font-semibold backdrop-blur-lg hover:bg-[#ff4e3d] hover:text-black transition-shadow duration-300 shadow-lg"
                 >
                   Get Started
                   <span className="absolute inset-0 rounded-full border border-white/10 backdrop-blur-sm pointer-events-none -z-10" />

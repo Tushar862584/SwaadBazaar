@@ -5,7 +5,7 @@ const nextConfig = {
       images: {
         unoptimized: true, // Disable image optimization for static export
       },
-      assetPrefix: isProd ? 'https://github.com/sahilbhandare45/SwaadBazaar_EntityCoders/' : '',
-      basePath: isProd ? 'https://github.com/sahilbhandare45/SwaadBazaar_EntityCoders/' : '',
+      assetPrefix: isProd ? 'https://github.com/Tushar862584/SwaadBazaar/' : '',
+      basePath: isProd ? 'https://github.com/Tushar862584/SwaadBazaar/' : '',
     };
 export default nextConfig;
