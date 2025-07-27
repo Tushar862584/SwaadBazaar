@@ -1,13 +1,11 @@
-import type { NextConfig } from "next";
-const isProd = process.env.NODE_ENV === "production";
+/** @type {import('next').NextConfig} */
+
 const nextConfig = {
-  output: "export",
-  images: {
-    unoptimized: true, // Disable image optimization for static export
-  },
-  assetPrefix: isProd ? "https://github.com/Tushar862584/SwaadBazaar/" : "",
+  // The 'eslint' block is a user preference, you can keep it.
+  // It's recommended to remove it in the long term to enforce code quality.
   eslint: {
     ignoreDuringBuilds: true,
   },
 };
+
 export default nextConfig;
