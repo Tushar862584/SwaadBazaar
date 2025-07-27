@@ -4,7 +4,7 @@ import ProductCard from '../../../components/ProductCard';
 import OrderTable from '../../../components/OrderTable';
 import RatingOverview from '../../../components/RatingOverview';
 import KYCStatus from '../../../components/KYCStatus';
-import AddProductForm from '../../../components/AddProductForm';
+
 
 const tabs = ['My Products', 'Orders', 'Reviews', 'KYC'];
 
