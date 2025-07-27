@@ -81,10 +81,19 @@ Street vendors face inefficient sourcing, volatile pricing, and wasted time. **S
 
 ### 🧪 Demo Credentials
 
-You can use the following credentials to log in and test the admin dashboard.
+You can use the following credentials to log in and test the different user portals.
 
+**Admin Login:**
 * **Email:** `admin@example.com`
 * **Password:** `admin123`
+
+**Supplier Login:**
+* **Email:** `tusharsuryawanshi137@gmail.com`
+* **Password:** `paru123`
+
+**Vendor Login:**
+* **Email:** `steve1@gmail.com`
+* **Password:** `12345`
 
 > **Note:** These are for local testing and demonstration purposes only. Never commit real user credentials to a public repository.
 
@@ -96,3 +105,4 @@ You can use the following credentials to log in and test the admin dashboard.
 * **Logistics Integration** for a complete order and delivery network.
 * **Supplier Analytics Dashboard** to show demand trends and insights.
 * **Digital Payments & Credit** to streamline transactions.
+
