@@ -226,9 +226,9 @@ const howItWorks = [
 ];
 
 const team = [
-  { name: 'Sahil Bhandare', role: 'Frontend Developer', photo: '/team/sahil.jpg', linkedin: 'https://linkedin.com/in/sahil', github: 'https://github.com/sahil' },
-  { name: 'Tushar Suryawanshi', role: 'Frontend Developer', photo: '/team/tushar.jpg', linkedin: 'https://linkedin.com/in/', github: 'https://github.com/' },
-  { name: 'Kshitij Gulhane', role: 'Backend Engineer', photo: '/team/kshitij.jpg', linkedin: 'https://linkedin.com/in/', github: 'https://github.com/' },
-  { name: 'Prachita Singh', role: 'Backend Engineer', photo: '/team/prachita.jpg', linkedin: 'https://linkedin.com/in/', github: 'https://github.com/' },
-  { name: 'Yuvika Sood', role: 'Testing Engineer', photo: '/team/yuvika.jpg', linkedin: 'https://linkedin.com/in/', github: 'https://github.com/' },
+  { name: 'Sahil Bhandare', role: 'Frontend Developer', photo: '/team/sahill.jpg', linkedin: 'https://linkedin.com/in/sahil-bhandare045/', github: 'https://github.com/sahilbhandare45' },
+  { name: 'Tushar Suryawanshi', role: 'Frontend Developer', photo: '/team/tushar.jpg', linkedin: 'https://www.linkedin.com/in/tushar2006/', github: 'https://github.com/Tushar862584' },
+  { name: 'Kshitij Gulhane', role: 'Backend Engineer', photo: '/team/kshitij.jpeg', linkedin: 'https://linkedin.com/in/', github: 'https://github.com/' },
+  { name: 'Prachita Singh', role: 'Backend Engineer', photo: '/team/prachita.jpeg', linkedin: 'https://linkedin.com/in/', github: 'https://github.com/' },
+  { name: 'Yuvika Sood', role: 'Testing Engineer', photo: '/team/yuvika.jpeg', linkedin: 'https://linkedin.com/in/', github: 'https://github.com/' },
 ];
