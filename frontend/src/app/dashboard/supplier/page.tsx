@@ -1,5 +1,6 @@
 'use client';
 import React, { useState } from 'react';
+import { toast } from 'react-hot-toast';
 import ProductCard from '../../../components/ProductCard';
 import OrderTable from '../../../components/OrderTable';
 import RatingOverview from '../../../components/RatingOverview';
@@ -12,8 +13,11 @@ export default function SupplierDashboard() {
   const [activeTab, setActiveTab] = useState('My Products');
 
   const handleLogout = () => {
-    localStorage.clear(); // optional: clear tokens or user info
-    window.location.href = '/login'; // or use a router to redirect
+    localStorage.clear(); // if you're using token storage
+    toast.success('Logged out successfully');
+    setTimeout(() => {
+      window.location.href = '/login'; // replace with router.push('/login') if using NextRouter
+    }, 1500);
   };
 
   return (
@@ -49,11 +53,7 @@ export default function SupplierDashboard() {
 
         {/* Tab Content */}
         <div className="bg-white/60 backdrop-blur-md border border-white/20 p-6 rounded-2xl shadow-lg">
-          {activeTab === 'My Products' && (
-            <div className="mt-6">
-              <ProductCard />
-            </div>
-          )}
+          {activeTab === 'My Products' && <ProductCard />}
           {activeTab === 'Orders' && <OrderTable />}
           {activeTab === 'Reviews' && <RatingOverview />}
           {activeTab === 'KYC' && <KYCStatus />}
