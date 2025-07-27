@@ -16,7 +16,6 @@ import { motion } from 'framer-motion';
 import { FaUsers, FaCheck, FaFileDownload, FaTimes, FaPlus } from 'react-icons/fa';
 import Image from 'next/image';
 
-
 const initialSuppliers = [
   { name: 'Vendor One', region: 'Delhi', kyc: '/kyc/doc1.png', status: 'Pending' },
   { name: 'Vendor Two', region: 'Mumbai', kyc: '/kyc/doc2.png', status: 'Approved' },
@@ -43,11 +42,6 @@ export default function AdminPanel() {
     );
   };
 
-  const filteredSuppliers =
-    statusFilter === 'All'
-      ? suppliers
-      : suppliers.filter(s => s.status === statusFilter);
-
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const { name, region, kyc } = newSupplier;
@@ -57,31 +51,50 @@ export default function AdminPanel() {
     setModalOpen(false);
   };
 
+  const handleLogout = () => {
+    // ✅ Replace with real logout logic (NextAuth, Firebase, etc.)
+    // localStorage.removeItem('authToken'); // if using tokens
+    // sessionStorage.clear();              // optional
+    window.location.href = '/login';        // redirect to login
+  };
+
+  const filteredSuppliers =
+    statusFilter === 'All'
+      ? suppliers
+      : suppliers.filter(s => s.status === statusFilter);
+
   const pieChartData = [
-  { name: 'Approved', value: suppliers.filter(s => s.status === 'Approved').length },
-  { name: 'Pending', value: suppliers.filter(s => s.status === 'Pending').length },
-  { name: 'Rejected', value: suppliers.filter(s => s.status === 'Rejected').length },
-];
+    { name: 'Approved', value: suppliers.filter(s => s.status === 'Approved').length },
+    { name: 'Pending', value: suppliers.filter(s => s.status === 'Pending').length },
+    { name: 'Rejected', value: suppliers.filter(s => s.status === 'Rejected').length },
+  ];
 
-const pieColors = ['#4ade80', '#facc15', '#f87171']; // green, yellow, red
+  const pieColors = ['#4ade80', '#facc15', '#f87171'];
 
-const barChartData = regions.map(region => ({
-  region,
-  suppliers: suppliers.filter(s => s.region === region).length,
-}));
-
+  const barChartData = regions.map(region => ({
+    region,
+    suppliers: suppliers.filter(s => s.region === region).length,
+  }));
 
   return (
     <main className="min-h-screen bg-gradient-to-br from-[#0f172a] to-[#1e293b] text-white px-6 py-10">
       {/* Header */}
       <div className="flex justify-between items-center mb-10">
         <h1 className="text-3xl font-bold">Admin Dashboard</h1>
-        <button
-          onClick={() => setModalOpen(true)}
-          className="flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 px-4 py-2 rounded-full hover:bg-white/20 transition"
-        >
-          <FaPlus /> Add Supplier
-        </button>
+        <div className="flex gap-4">
+          <button
+            onClick={() => setModalOpen(true)}
+            className="flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 px-4 py-2 rounded-full hover:bg-white/20 transition"
+          >
+            <FaPlus /> Add Supplier
+          </button>
+          <button
+            onClick={handleLogout}
+            className="flex items-center gap-2 bg-red-500/10 text-red-300 border border-red-300/30 px-4 py-2 rounded-full hover:bg-red-500/20 transition"
+          >
+            <FaTimes /> Logout
+          </button>
+        </div>
       </div>
 
       {/* Stat Cards */}
@@ -114,44 +127,44 @@ const barChartData = regions.map(region => ({
         ))}
       </section>
 
-{/* Charts Section */}
-<div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-12">
-  {/* Pie Chart */}
-  <div className="bg-white/10 border border-white/20 backdrop-blur-lg p-6 rounded-2xl shadow">
-    <h3 className="text-lg font-bold mb-4 text-center">Supplier Status Overview</h3>
-    <ResponsiveContainer width="100%" height={250}>
-      <PieChart>
-        <Pie
-          dataKey="value"
-          data={pieChartData}
-          cx="50%"
-          cy="50%"
-          outerRadius={80}
-          label
-        >
-          {pieChartData.map((entry, index) => (
-            <Cell key={`cell-${index}`} fill={pieColors[index % pieColors.length]} />
-          ))}
-        </Pie>
-        <Legend />
-        <Tooltip />
-      </PieChart>
-    </ResponsiveContainer>
-  </div>
+      {/* Charts */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-12">
+        {/* Pie Chart */}
+        <div className="bg-white/10 border border-white/20 backdrop-blur-lg p-6 rounded-2xl shadow">
+          <h3 className="text-lg font-bold mb-4 text-center">Supplier Status Overview</h3>
+          <ResponsiveContainer width="100%" height={250}>
+            <PieChart>
+              <Pie
+                dataKey="value"
+                data={pieChartData}
+                cx="50%"
+                cy="50%"
+                outerRadius={80}
+                label
+              >
+                {pieChartData.map((entry, index) => (
+                  <Cell key={`cell-${index}`} fill={pieColors[index % pieColors.length]} />
+                ))}
+              </Pie>
+              <Legend />
+              <Tooltip />
+            </PieChart>
+          </ResponsiveContainer>
+        </div>
 
-  {/* Bar Chart */}
-  <div className="bg-white/10 border border-white/20 backdrop-blur-lg p-6 rounded-2xl shadow">
-    <h3 className="text-lg font-bold mb-4 text-center">Suppliers by Region</h3>
-    <ResponsiveContainer width="100%" height={250}>
-      <BarChart data={barChartData}>
-        <XAxis dataKey="region" stroke="#fff" />
-        <YAxis stroke="#fff" />
-        <Tooltip />
-        <Bar dataKey="suppliers" fill="#4ade80" />
-      </BarChart>
-    </ResponsiveContainer>
-  </div>
-</div>
+        {/* Bar Chart */}
+        <div className="bg-white/10 border border-white/20 backdrop-blur-lg p-6 rounded-2xl shadow">
+          <h3 className="text-lg font-bold mb-4 text-center">Suppliers by Region</h3>
+          <ResponsiveContainer width="100%" height={250}>
+            <BarChart data={barChartData}>
+              <XAxis dataKey="region" stroke="#fff" />
+              <YAxis stroke="#fff" />
+              <Tooltip />
+              <Bar dataKey="suppliers" fill="#4ade80" />
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
+      </div>
 
       {/* Filters */}
       <div className="flex flex-wrap justify-between items-center gap-4 mb-6">
@@ -233,7 +246,7 @@ const barChartData = regions.map(region => ({
         </table>
       </div>
 
-      {/* KYC Preview Modal */}
+      {/* KYC Modal */}
       {selectedKYC && (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50">
           <div className="bg-white/10 backdrop-blur-lg border border-white/20 p-6 rounded-xl max-w-md w-full text-center relative">
