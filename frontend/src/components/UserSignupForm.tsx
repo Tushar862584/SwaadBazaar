@@ -31,7 +31,7 @@ export default function SignupPage() {
     try {
       // --- 2. Live API Call ---
       // This now makes a real request to your backend endpoint.
-      const res = await fetch('http://localhost:3001/api/auth/register', {
+      const res = await fetch('http://localhost:8080/api/auth/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         // We don't send confirmPassword to the backend as it's not needed there.
